@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import randint, choice, seed
 from core.room import Room3D
 from core.maradona import Maradona
 from core.utils import all_clean
@@ -8,11 +8,26 @@ from time import sleep
 
 if __name__ == '__main__':
 
+    # posição inicial do aspirador de pó
     mara_initial_state = (randint(3, 4), randint(0, 4))
     mx, my = mara_initial_state
 
+    stage = input('Choose a stage by inserting any number:\n>\t')
+    try:
+        stage = int(stage)
+    except ValueError:
+        print('Invalid input. Setting stage to 0!')
+        stage = 0
+
+    # A fase (sujeira no tabuleiro) é definida pela semente
+    seed(stage)
+
+    # Cria uma sala e um aspirador de pó
     room = Room3D(1)
     mara = Maradona(mx, my, room)
+
+    # exibe o mapa da sala
+    print(f'Map of stage {stage}:')
     mara.room.show()
 
     controller = {
@@ -61,10 +76,15 @@ if __name__ == '__main__':
             neighs = mara.check_neighbors()
 
             # decide a direção do movimento
-            if 1 not in neighs.values():
-                possible = [k for k, v in neighs.items() if v is not None]
-                direction = choice(possible)
-                mara.__getattribute__(f'move_{direction}')()
+            if not any(neighs.values()):
+                search = mara.search()
+                if search:
+                    direction, distance = search
+                    for _ in range(distance):
+                        mara.__getattribute__(f'move_{direction}')()
+                else:
+                    direction = choice(list(neighs.keys()))
+                    mara.__getattribute__(f'move_{direction}')()
 
             else:
                 for direction, dirty in neighs.items():

@@ -119,7 +119,7 @@ class Maradona:
         self.pos_x = x
         self.n_steps += step
 
-    def check_neighbors(self):
+    def check_neighbors(self, n=1):
         """
         Verifica o conteúdo dos vizinhos, isto é se tem sujeira ou se é uma parede (limite máximo).
         Retorna um dicionário contendo o valor dos vizinhos de cada direção.
@@ -127,9 +127,19 @@ class Maradona:
         0 se estiver limpo.
         None se for o limite.
         """
-        up_n = self.room[self.pos_x-1][self.pos_y] if self.validate_move(self.pos_x-1, self.pos_y) else None
-        down_n = self.room[self.pos_x+1][self.pos_y] if self.validate_move(self.pos_x+1, self.pos_y) else None
-        left_n = self.room[self.pos_x][self.pos_y-1] if self.validate_move(self.pos_x, self.pos_y-1) else None
-        right_n = self.room[self.pos_x][self.pos_y+1] if self.validate_move(self.pos_x, self.pos_y+1) else None
+        up_n = self.room[self.pos_x-n][self.pos_y] if self.validate_move(self.pos_x-n, self.pos_y) else None
+        down_n = self.room[self.pos_x+n][self.pos_y] if self.validate_move(self.pos_x+n, self.pos_y) else None
+        left_n = self.room[self.pos_x][self.pos_y-n] if self.validate_move(self.pos_x, self.pos_y-n) else None
+        right_n = self.room[self.pos_x][self.pos_y+n] if self.validate_move(self.pos_x, self.pos_y+n) else None
 
         return {'up': up_n, 'down': down_n, 'left': left_n, 'right': right_n}
+
+    def search(self):
+        print('searching elements...')
+
+        for i in range(1, len(self.room._map)+1):
+            neighs = self.check_neighbors(n=i)
+            if any(neighs.values()):
+                for k, v in neighs.items():
+                    if v:
+                        return (k, i)

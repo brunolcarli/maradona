@@ -43,4 +43,5 @@ class Room3D:
             line = ' '.join(str(i) for i in row)
             print(f'\t[ {line} ]')
         print('\n\t      S')
+        print('-------------------------------')
 
