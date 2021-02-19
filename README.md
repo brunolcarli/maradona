@@ -4,7 +4,7 @@
 
 # Joguinho do aspirador de pó
 
-*Faça o maradona limpar a poiera*
+*Faça o maradona limpar a poeira*
 
 </td></tr>
 
