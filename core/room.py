@@ -9,7 +9,7 @@ class Room3D:
         self._map = self.build()
 
     def build(self):
-        return [[randint(0, 10) for _ in range(self.max_size_x)] for _ in range(self.max_size_y)]
+        return [[randint(0, 1) for _ in range(self.max_size_x)] for _ in range(self.max_size_y)]
 
     def __getitem__(self, index):
         return self._map.__getitem__(index)
