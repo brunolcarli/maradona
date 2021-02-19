@@ -1,0 +1,10 @@
+Mundo do Aspirador de Pó
+
+• Estados: Posição do Aspirador e Situação da Sujeira
+• Estado Inicial: Ex: duas salas, ambas sujas, aspirador na primeira sala
+• Ações: Esperda, Direita e Aspirar
+• Modelo de Transição: As ações tem efeitos esperados, exceto: Direita na sala mais à
+direita, Esquerda na sala mais à esquerda e Aspirar uma sala limpa, não possuem
+efeito
+• Teste de Objetivo: Verifica se todas as salas estão limpas
+• Custo do Caminho: Cada passo custa 1, o custo do caminho é o número de passos
